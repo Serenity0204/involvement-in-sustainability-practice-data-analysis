@@ -19,6 +19,12 @@ year_col = response_df['What year are you in?'].str.lower().str.strip()
 transfer_col = response_df['Are you a transfer student?'].str.lower().str.strip()
 gender_col = response_df['What gender do you identify with?'].str.lower().str.strip()
 college_col = response_df['What college are you in?'].str.strip()
+jtccer_col = response_df[
+    'Have you taken a class that satisfies the Jane Teranes Climate Change Education Requirement (JTCCER)?\nList of Courses'
+].str.lower().str.strip()
+
+
+
 
 # Get the indices for different queries
 stem_indices = response_df[stem_mask].index.tolist()
@@ -45,7 +51,8 @@ seventh_indices = response_df[college_col == 'Seventh'].index.tolist()
 eighth_indices = response_df[college_col == 'Eighth'].index.tolist()
 grad_student_indices = response_df[college_col == "I'm a graduate student."].index.tolist()
 
-
+jtccer_yes_indices = response_df[jtccer_col == 'yes'].index.tolist()
+jtccer_no_indices = response_df[jtccer_col == 'no'].index.tolist()
 
 
 
@@ -78,6 +85,11 @@ eighth_avg = score_df.loc[eighth_indices, "Sum"].mean()
 grad_avg = score_df.loc[grad_student_indices, "Sum"].mean()
 
 
+jtccer_yes_avg = score_df.loc[jtccer_yes_indices, "Sum"].mean()
+jtccer_no_avg = score_df.loc[jtccer_no_indices, "Sum"].mean()
+
+
+
 # Print Scores
 print(f"STEM Average Involvement Score: {stem_avg:.2f}")
 print(f"Non-STEM Average Involvement Score: {non_stem_avg:.2f}")
@@ -103,3 +115,6 @@ print(f"Sixth Involvement Score: {sixth_avg:.2f}")
 print(f"Seventh Involvement Score: {seventh_avg:.2f}")
 print(f"Eighth Involvement Score: {eighth_avg:.2f}")
 print(f"Graduate Student Involvement Score: {grad_avg:.2f}")
+
+print(f"People who have taken JTCCER classes Involvement Score: {jtccer_yes_avg:.2f}")
+print(f"People who have NOT taken JTCCER classes Involvement Score: {jtccer_no_avg:.2f}")
